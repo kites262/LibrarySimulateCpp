@@ -1,0 +1,40 @@
+# C++ specific ignores
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.a
+*.lib
+
+# Build directories
+cmake-build-debug/
+cmake-build-release/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# CMake specific ignores
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore backup files
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Ignore compiled dynamic libraries
+*.dylib
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini

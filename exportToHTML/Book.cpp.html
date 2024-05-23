@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>Book.cpp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #b3ae60;}
+.s3 { color: #6aab73;}
+.s4 { color: #bcbec4;}
+.s5 { color: #cf8e6d;}
+.s6 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Book.cpp</font>
+</center></td></tr></table>
+<pre><span class="s0">//</span>
+<span class="s0">// Created by xuan on 2024/5/22.</span>
+<span class="s0">//</span>
+
+<span class="s2">#include </span><span class="s3">&quot;project.h&quot;</span>
+
+<span class="s1">Reader</span><span class="s4">* </span><span class="s1">Book::getReader</span><span class="s4">() </span><span class="s5">const </span><span class="s4">{</span>
+	<span class="s5">if</span><span class="s4">( </span><span class="s1">isAvailable</span><span class="s4">() ){</span>
+		<span class="s1">std::cerr </span><span class="s4">&lt;&lt; </span><span class="s3">&quot;Book is available&quot; </span><span class="s4">&lt;&lt; </span><span class="s1">endl</span><span class="s4">;</span>
+		<span class="s5">return nullptr</span><span class="s4">;</span>
+	<span class="s4">}</span>
+
+	<span class="s5">return </span><span class="s1">reader</span><span class="s4">;</span>
+<span class="s4">}</span>
+
+<span class="s5">void </span><span class="s1">Book::lendTo</span><span class="s4">(</span><span class="s1">Reader</span><span class="s4">* </span><span class="s1">reader</span><span class="s4">) {</span>
+	<span class="s5">if</span><span class="s4">( </span><span class="s1">isAvailable</span><span class="s4">() ){</span>
+		<span class="s1">reader</span><span class="s4">-&gt;</span><span class="s1">borrowBook</span><span class="s4">(</span><span class="s5">this</span><span class="s4">);</span>
+		<span class="s5">return</span><span class="s4">;</span>
+	<span class="s4">}</span>
+
+	<span class="s1">std::cerr </span><span class="s4">&lt;&lt; </span><span class="s3">&quot;Book is not available&quot; </span><span class="s4">&lt;&lt; </span><span class="s1">endl</span><span class="s4">;</span>
+<span class="s4">}</span>
+
+<span class="s5">void </span><span class="s1">Book::returnBack</span><span class="s4">() {</span>
+	<span class="s5">if</span><span class="s4">( </span><span class="s1">isAvailable</span><span class="s4">() ){</span>
+		<span class="s1">std::cerr </span><span class="s4">&lt;&lt; </span><span class="s3">&quot;Book is already available&quot; </span><span class="s4">&lt;&lt; </span><span class="s1">endl</span><span class="s4">;</span>
+	<span class="s4">}</span>
+
+	<span class="s1">reader</span><span class="s4">-&gt;</span><span class="s1">returnBook</span><span class="s4">(</span><span class="s1">getTitle</span><span class="s4">());</span>
+<span class="s4">}</span>
+
+<span class="s1">String Book::serialize</span><span class="s4">() </span><span class="s5">const </span><span class="s4">{</span>
+	<span class="s1">std::stringstream ss</span><span class="s4">;</span>
+	<span class="s1">ss </span><span class="s4">&lt;&lt; </span><span class="s3">&quot;[&quot; </span><span class="s4">&lt;&lt; </span><span class="s1">title </span><span class="s4">&lt;&lt; </span><span class="s3">&quot;, &quot; </span><span class="s4">&lt;&lt; (</span><span class="s1">reader </span><span class="s4">== </span><span class="s5">nullptr </span><span class="s1">? </span><span class="s3">&quot;null&quot; </span><span class="s1">: reader</span><span class="s4">-&gt;</span><span class="s1">getName</span><span class="s4">()) &lt;&lt; </span><span class="s3">&quot;]&quot;</span><span class="s4">;</span>
+	<span class="s5">return </span><span class="s1">ss</span><span class="s4">.</span><span class="s1">str</span><span class="s4">();</span>
+<span class="s4">}</span>
+
+<span class="s5">void </span><span class="s1">Book::cast</span><span class="s4">(</span><span class="s5">const </span><span class="s1">String</span><span class="s4">&amp; </span><span class="s1">data</span><span class="s4">, </span><span class="s1">Library</span><span class="s4">* </span><span class="s1">targetLib</span><span class="s4">) {</span>
+	<span class="s1">std::stringstream ss</span><span class="s4">(</span><span class="s1">data</span><span class="s4">);</span>
+	<span class="s1">String title</span><span class="s4">, </span><span class="s1">readerName</span><span class="s4">;</span>
+	<span class="s1">ss</span><span class="s4">.</span><span class="s1">ignore</span><span class="s4">(</span><span class="s6">1</span><span class="s4">);</span>
+	<span class="s1">std::getline</span><span class="s4">(</span><span class="s1">ss</span><span class="s4">, </span><span class="s1">title</span><span class="s4">, </span><span class="s3">','</span><span class="s4">);</span>
+	<span class="s1">ss</span><span class="s4">.</span><span class="s1">ignore</span><span class="s4">(</span><span class="s6">1</span><span class="s4">);</span>
+	<span class="s1">std::getline</span><span class="s4">(</span><span class="s1">ss</span><span class="s4">, </span><span class="s1">readerName</span><span class="s4">, </span><span class="s3">']'</span><span class="s4">);</span>
+
+	<span class="s1">Book</span><span class="s4">* </span><span class="s1">book </span><span class="s4">= </span><span class="s1">targetLib</span><span class="s4">-&gt;</span><span class="s1">getBook</span><span class="s4">(</span><span class="s1">title</span><span class="s4">);</span>
+	<span class="s5">if </span><span class="s4">(</span><span class="s1">readerName </span><span class="s4">!= </span><span class="s3">&quot;null&quot; </span><span class="s4">&amp;&amp; !</span><span class="s1">readerName</span><span class="s4">.</span><span class="s1">empty</span><span class="s4">()) {</span>
+		<span class="s1">Reader</span><span class="s4">* </span><span class="s1">reader </span><span class="s4">= </span><span class="s1">targetLib</span><span class="s4">-&gt;</span><span class="s1">getReader</span><span class="s4">(</span><span class="s1">readerName</span><span class="s4">);</span>
+		<span class="s5">if </span><span class="s4">(</span><span class="s1">reader </span><span class="s4">&amp;&amp; </span><span class="s1">book</span><span class="s4">) {</span>
+			<span class="s1">book</span><span class="s4">-&gt;</span><span class="s1">lendTo</span><span class="s4">(</span><span class="s1">reader</span><span class="s4">);</span>
+		<span class="s4">}</span>
+	<span class="s4">}</span>
+<span class="s4">}</span>
+</pre>
+</body>
+</html>

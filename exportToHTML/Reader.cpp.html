@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>Reader.cpp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #b3ae60;}
+.s3 { color: #6aab73;}
+.s4 { color: #cf8e6d;}
+.s5 { color: #bcbec4;}
+.s6 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Reader.cpp</font>
+</center></td></tr></table>
+<pre><span class="s0">//</span>
+<span class="s0">// Created by xuan on 2024/5/22.</span>
+<span class="s0">//</span>
+
+<span class="s2">#include </span><span class="s3">&quot;lib.h&quot;</span>
+<span class="s2">#include </span><span class="s3">&quot;project.h&quot;</span>
+
+<span class="s4">void </span><span class="s1">Reader::borrowBook</span><span class="s5">(</span><span class="s1">Book</span><span class="s5">* </span><span class="s1">book</span><span class="s5">) {</span>
+	<span class="s1">books</span><span class="s5">.</span><span class="s1">push_back</span><span class="s5">(</span><span class="s1">book</span><span class="s5">);</span>
+	<span class="s1">book</span><span class="s5">-&gt;</span><span class="s1">setReader</span><span class="s5">(</span><span class="s4">this</span><span class="s5">);</span>
+<span class="s5">}</span>
+
+<span class="s4">void </span><span class="s1">Reader::returnBook</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String</span><span class="s5">&amp; </span><span class="s1">bookTitle</span><span class="s5">) {</span>
+	<span class="s4">for </span><span class="s5">(</span><span class="s4">int </span><span class="s1">i </span><span class="s5">= </span><span class="s6">0</span><span class="s5">; </span><span class="s1">i </span><span class="s5">&lt; </span><span class="s1">books</span><span class="s5">.</span><span class="s1">size</span><span class="s5">(); ++</span><span class="s1">i</span><span class="s5">) {</span>
+		<span class="s4">if </span><span class="s5">(</span><span class="s1">books</span><span class="s5">[</span><span class="s1">i</span><span class="s5">]-&gt;</span><span class="s1">getTitle</span><span class="s5">() == </span><span class="s1">bookTitle</span><span class="s5">) {</span>
+			<span class="s1">returnBookAt</span><span class="s5">(</span><span class="s1">i</span><span class="s5">);</span>
+			<span class="s4">return</span><span class="s5">;</span>
+		<span class="s5">}</span>
+	<span class="s5">}</span>
+	<span class="s1">std::cerr </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;Book titled '&quot; </span><span class="s5">&lt;&lt; </span><span class="s1">bookTitle </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;' not found.&quot; </span><span class="s5">&lt;&lt; </span><span class="s1">std::endl</span><span class="s5">;</span>
+<span class="s5">}</span>
+
+<span class="s4">void </span><span class="s1">Reader::returnBookAt</span><span class="s5">(</span><span class="s4">int </span><span class="s1">index</span><span class="s5">) {</span>
+	<span class="s4">if</span><span class="s5">( </span><span class="s1">index </span><span class="s5">&gt;= </span><span class="s1">books</span><span class="s5">.</span><span class="s1">size</span><span class="s5">() ){</span>
+		<span class="s1">std::cerr </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;Invalid index&quot; </span><span class="s5">&lt;&lt; </span><span class="s1">endl</span><span class="s5">;</span>
+		<span class="s4">return</span><span class="s5">;</span>
+	<span class="s5">}</span>
+
+	<span class="s1">books</span><span class="s5">[</span><span class="s1">index</span><span class="s5">]-&gt;</span><span class="s1">setReader</span><span class="s5">(</span><span class="s4">nullptr</span><span class="s5">);</span>
+	<span class="s1">books</span><span class="s5">.</span><span class="s1">erase</span><span class="s5">(</span><span class="s1">books</span><span class="s5">.</span><span class="s1">begin</span><span class="s5">() + </span><span class="s1">index</span><span class="s5">);</span>
+<span class="s5">}</span>
+
+<span class="s4">void </span><span class="s1">Reader::showBooks</span><span class="s5">() {</span>
+	<span class="s4">if</span><span class="s5">( </span><span class="s1">books</span><span class="s5">.</span><span class="s1">empty</span><span class="s5">() ){</span>
+		<span class="s1">cout </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;No books&quot; </span><span class="s5">&lt;&lt; </span><span class="s1">endl</span><span class="s5">;</span>
+		<span class="s4">return</span><span class="s5">;</span>
+	<span class="s5">}</span><span class="s4">else </span><span class="s5">{</span>
+		<span class="s4">for</span><span class="s5">( </span><span class="s4">auto </span><span class="s1">book : books </span><span class="s5">){</span>
+			<span class="s1">cout </span><span class="s5">&lt;&lt; </span><span class="s1">book</span><span class="s5">-&gt;</span><span class="s1">getTitle</span><span class="s5">() &lt;&lt; </span><span class="s3">&quot;, &quot;</span><span class="s5">;</span>
+		<span class="s5">}</span>
+		<span class="s1">cout </span><span class="s5">&lt;&lt; </span><span class="s1">endl</span><span class="s5">;</span>
+	<span class="s5">}</span>
+<span class="s5">}</span>
+</pre>
+</body>
+</html>
