@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Book.h</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #b3ae60;}
+.s3 { color: #6aab73;}
+.s4 { color: #cf8e6d;}
+.s5 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Book.h</font>
+</center></td></tr></table>
+<pre><span class="s0">//</span>
+<span class="s0">// Created by xuan on 2024/5/22.</span>
+<span class="s0">//</span>
+
+<span class="s2">#ifndef </span><span class="s1">BOOK_H</span>
+<span class="s2">#define </span><span class="s1">BOOK_H</span>
+
+<span class="s2">#include </span><span class="s3">&quot;lib.h&quot;</span>
+
+<span class="s4">class </span><span class="s1">Reader</span><span class="s5">;</span>
+<span class="s4">class </span><span class="s1">Library</span><span class="s5">;</span>
+
+<span class="s4">class </span><span class="s1">Book </span><span class="s5">{</span>
+    <span class="s4">private</span><span class="s1">:</span>
+    <span class="s1">String title</span><span class="s5">;</span>
+    <span class="s1">Reader </span><span class="s5">*</span><span class="s1">reader</span><span class="s5">;</span>
+
+    <span class="s4">public</span><span class="s1">:</span>
+    <span class="s4">explicit </span><span class="s1">Book</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String</span><span class="s5">&amp; </span><span class="s1">title</span><span class="s5">) </span><span class="s1">: title</span><span class="s5">(</span><span class="s1">title</span><span class="s5">), </span><span class="s1">reader</span><span class="s5">(</span><span class="s4">nullptr</span><span class="s5">) {};</span>
+    <span class="s1">Book</span><span class="s5">() </span><span class="s1">: title</span><span class="s5">(</span><span class="s3">&quot;&quot;</span><span class="s5">), </span><span class="s1">reader</span><span class="s5">(</span><span class="s4">nullptr</span><span class="s5">) {};</span>
+
+    <span class="s1">String getTitle</span><span class="s5">() </span><span class="s4">const </span><span class="s5">{ </span><span class="s4">return </span><span class="s1">title</span><span class="s5">; };</span>
+    <span class="s4">void </span><span class="s1">setReader</span><span class="s5">(</span><span class="s1">Reader</span><span class="s5">* </span><span class="s1">reader</span><span class="s5">) { </span><span class="s4">this</span><span class="s5">-&gt;</span><span class="s1">reader </span><span class="s5">= </span><span class="s1">reader</span><span class="s5">; };</span>
+    <span class="s4">bool </span><span class="s1">isAvailable</span><span class="s5">() </span><span class="s4">const </span><span class="s5">{ </span><span class="s4">return </span><span class="s1">reader </span><span class="s5">== </span><span class="s4">nullptr</span><span class="s5">; };</span>
+
+    <span class="s1">Reader</span><span class="s5">* </span><span class="s1">getReader</span><span class="s5">() </span><span class="s4">const</span><span class="s5">;</span>
+
+    <span class="s4">void </span><span class="s1">lendTo</span><span class="s5">(</span><span class="s1">Reader</span><span class="s5">* </span><span class="s1">reader</span><span class="s5">);</span>
+    <span class="s4">void </span><span class="s1">returnBack</span><span class="s5">();</span>
+
+    <span class="s1">String serialize</span><span class="s5">() </span><span class="s4">const</span><span class="s5">;</span>
+    <span class="s4">static void </span><span class="s1">cast</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String</span><span class="s5">&amp; </span><span class="s1">data</span><span class="s5">, </span><span class="s1">Library</span><span class="s5">* </span><span class="s1">targetLib</span><span class="s5">);</span>
+<span class="s5">};</span>
+
+<span class="s2">#endif </span><span class="s0">//BOOK_H</span>
+</pre>
+</body>
+</html>

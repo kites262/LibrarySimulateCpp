@@ -1,0 +1,150 @@
+<html>
+<head>
+<title>Library.cpp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #7a7e85;}
+.s1 { color: #bcbec4;}
+.s2 { color: #b3ae60;}
+.s3 { color: #6aab73;}
+.s4 { color: #cf8e6d;}
+.s5 { color: #bcbec4;}
+.s6 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Library.cpp</font>
+</center></td></tr></table>
+<pre><span class="s0">//</span>
+<span class="s0">// Created by xuan on 2024/5/22.</span>
+<span class="s0">//</span>
+
+<span class="s2">#include </span><span class="s3">&quot;project.h&quot;</span>
+
+<span class="s4">void </span><span class="s1">Library::copyIn</span><span class="s5">(</span><span class="s4">const </span><span class="s1">Book </span><span class="s5">&amp;</span><span class="s1">book</span><span class="s5">) {</span>
+    <span class="s1">books</span><span class="s5">.</span><span class="s1">push_back</span><span class="s5">(</span><span class="s1">book</span><span class="s5">);</span>
+<span class="s5">}</span>
+
+<span class="s4">void </span><span class="s1">Library::addBook</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String </span><span class="s5">&amp;</span><span class="s1">title</span><span class="s5">) {</span>
+    <span class="s1">books</span><span class="s5">.</span><span class="s1">emplace_back</span><span class="s5">(</span><span class="s1">title</span><span class="s5">);</span>
+<span class="s5">}</span>
+
+<span class="s4">void </span><span class="s1">Library::removeBook</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String</span><span class="s5">&amp; </span><span class="s1">title</span><span class="s5">) {</span>
+    <span class="s4">for </span><span class="s5">(</span><span class="s4">auto </span><span class="s1">it </span><span class="s5">= </span><span class="s1">books</span><span class="s5">.</span><span class="s1">begin</span><span class="s5">(); </span><span class="s1">it </span><span class="s5">!= </span><span class="s1">books</span><span class="s5">.</span><span class="s1">end</span><span class="s5">(); ++</span><span class="s1">it</span><span class="s5">) {</span>
+        <span class="s4">if </span><span class="s5">(</span><span class="s1">it</span><span class="s5">-&gt;</span><span class="s1">getTitle</span><span class="s5">() == </span><span class="s1">title</span><span class="s5">) {</span>
+            <span class="s1">books</span><span class="s5">.</span><span class="s1">erase</span><span class="s5">(</span><span class="s1">it</span><span class="s5">);</span>
+            <span class="s4">return</span><span class="s5">;</span>
+        <span class="s5">}</span>
+    <span class="s5">}</span>
+
+    <span class="s1">std::cerr </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;Book not found&quot; </span><span class="s5">&lt;&lt; </span><span class="s1">endl</span><span class="s5">;</span>
+<span class="s5">}</span>
+
+<span class="s1">Book</span><span class="s5">* </span><span class="s1">Library::searchBook</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String </span><span class="s5">&amp;</span><span class="s1">title</span><span class="s5">) {</span>
+    <span class="s4">for </span><span class="s5">(</span><span class="s4">auto</span><span class="s5">&amp; </span><span class="s1">book : books</span><span class="s5">) {</span>
+        <span class="s4">if </span><span class="s5">(</span><span class="s1">book</span><span class="s5">.</span><span class="s1">getTitle</span><span class="s5">() == </span><span class="s1">title</span><span class="s5">) {</span>
+            <span class="s4">return </span><span class="s5">&amp;</span><span class="s1">book</span><span class="s5">;</span>
+        <span class="s5">}</span>
+    <span class="s5">}</span>
+
+    <span class="s4">return nullptr</span><span class="s5">;</span>
+<span class="s5">}</span>
+
+<span class="s1">Book</span><span class="s5">* </span><span class="s1">Library::getBook</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String </span><span class="s5">&amp;</span><span class="s1">title</span><span class="s5">) {</span>
+    <span class="s1">Book</span><span class="s5">* </span><span class="s1">book </span><span class="s5">= </span><span class="s1">searchBook</span><span class="s5">(</span><span class="s1">title</span><span class="s5">);</span>
+    <span class="s4">if</span><span class="s5">( </span><span class="s1">book </span><span class="s5">== </span><span class="s4">nullptr </span><span class="s5">){</span>
+        <span class="s1">addBook</span><span class="s5">(</span><span class="s1">title</span><span class="s5">);</span>
+        <span class="s4">return </span><span class="s5">&amp;</span><span class="s1">books</span><span class="s5">.</span><span class="s1">back</span><span class="s5">();</span>
+    <span class="s5">}</span>
+
+    <span class="s4">return </span><span class="s1">book</span><span class="s5">;</span>
+<span class="s5">}</span>
+
+<span class="s4">void </span><span class="s1">Library::addReader</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String </span><span class="s5">&amp;</span><span class="s1">name</span><span class="s5">) {</span>
+    <span class="s1">readers</span><span class="s5">.</span><span class="s1">emplace_back</span><span class="s5">(</span><span class="s1">name</span><span class="s5">);</span>
+<span class="s5">}</span>
+
+<span class="s4">void </span><span class="s1">Library::removeReader</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String </span><span class="s5">&amp;</span><span class="s1">name</span><span class="s5">) {</span>
+    <span class="s4">for </span><span class="s5">(</span><span class="s4">auto </span><span class="s1">it </span><span class="s5">= </span><span class="s1">readers</span><span class="s5">.</span><span class="s1">begin</span><span class="s5">(); </span><span class="s1">it </span><span class="s5">!= </span><span class="s1">readers</span><span class="s5">.</span><span class="s1">end</span><span class="s5">(); ++</span><span class="s1">it</span><span class="s5">) {</span>
+        <span class="s4">if </span><span class="s5">(</span><span class="s1">it</span><span class="s5">-&gt;</span><span class="s1">getName</span><span class="s5">() == </span><span class="s1">name</span><span class="s5">) {</span>
+            <span class="s1">readers</span><span class="s5">.</span><span class="s1">erase</span><span class="s5">(</span><span class="s1">it</span><span class="s5">);</span>
+            <span class="s4">return</span><span class="s5">;</span>
+        <span class="s5">}</span>
+    <span class="s5">}</span>
+
+    <span class="s1">std::cerr </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;Reader not found&quot; </span><span class="s5">&lt;&lt; </span><span class="s1">endl</span><span class="s5">;</span>
+<span class="s5">}</span>
+
+<span class="s1">Reader</span><span class="s5">* </span><span class="s1">Library::searchReader</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String </span><span class="s5">&amp;</span><span class="s1">name</span><span class="s5">) {</span>
+    <span class="s4">for </span><span class="s5">(</span><span class="s4">auto</span><span class="s5">&amp; </span><span class="s1">reader : readers</span><span class="s5">) {</span>
+        <span class="s4">if </span><span class="s5">(</span><span class="s1">reader</span><span class="s5">.</span><span class="s1">getName</span><span class="s5">() == </span><span class="s1">name</span><span class="s5">) {</span>
+            <span class="s4">return </span><span class="s5">&amp;</span><span class="s1">reader</span><span class="s5">;</span>
+        <span class="s5">}</span>
+    <span class="s5">}</span>
+
+    <span class="s4">return nullptr</span><span class="s5">;</span>
+<span class="s5">}</span>
+
+<span class="s1">Reader</span><span class="s5">* </span><span class="s1">Library::getReader</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String </span><span class="s5">&amp;</span><span class="s1">name</span><span class="s5">) {</span>
+    <span class="s1">Reader</span><span class="s5">* </span><span class="s1">reader </span><span class="s5">= </span><span class="s1">searchReader</span><span class="s5">(</span><span class="s1">name</span><span class="s5">);</span>
+    <span class="s4">if</span><span class="s5">( </span><span class="s1">reader </span><span class="s5">== </span><span class="s4">nullptr </span><span class="s5">){</span>
+        <span class="s1">addReader</span><span class="s5">(</span><span class="s1">name</span><span class="s5">);</span>
+        <span class="s4">return </span><span class="s5">&amp;</span><span class="s1">readers</span><span class="s5">.</span><span class="s1">back</span><span class="s5">();</span>
+    <span class="s5">}</span>
+
+    <span class="s4">return </span><span class="s1">reader</span><span class="s5">;</span>
+<span class="s5">}</span>
+
+<span class="s4">void </span><span class="s1">Library::showBooksTable</span><span class="s5">() </span><span class="s4">const </span><span class="s5">{</span>
+    <span class="s4">for</span><span class="s5">(</span><span class="s4">auto</span><span class="s5">&amp; </span><span class="s1">book : books</span><span class="s5">) {</span>
+
+        <span class="s1">cout </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;- &quot; </span><span class="s5">&lt;&lt; </span><span class="s1">book</span><span class="s5">.</span><span class="s1">getTitle</span><span class="s5">();</span>
+        <span class="s4">if</span><span class="s5">( </span><span class="s1">book</span><span class="s5">.</span><span class="s1">getTitle</span><span class="s5">().</span><span class="s1">length</span><span class="s5">() &lt;= </span><span class="s6">6</span><span class="s5">) {</span>
+            <span class="s1">cout </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;</span><span class="s4">\t\t</span><span class="s3">&quot;</span><span class="s5">;</span>
+        <span class="s5">}</span><span class="s4">else if</span><span class="s5">(</span><span class="s1">book</span><span class="s5">.</span><span class="s1">getTitle</span><span class="s5">().</span><span class="s1">length</span><span class="s5">() &lt;= </span><span class="s6">12</span><span class="s5">) {</span>
+            <span class="s1">cout </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;</span><span class="s4">\t</span><span class="s3">&quot;</span><span class="s5">;</span>
+        <span class="s5">}</span>
+        <span class="s1">cout </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;# &quot; </span><span class="s5">&lt;&lt; (</span><span class="s1">book</span><span class="s5">.</span><span class="s1">isAvailable</span><span class="s5">() </span><span class="s1">? </span><span class="s3">&quot;Available&quot; </span><span class="s1">: </span><span class="s3">&quot;Not Available&quot;</span><span class="s5">) &lt;&lt; </span><span class="s1">endl</span><span class="s5">;</span>
+    <span class="s5">}</span>
+<span class="s5">}</span>
+
+<span class="s4">void </span><span class="s1">Library::saveFile</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String </span><span class="s5">&amp;</span><span class="s1">filename</span><span class="s5">) {</span>
+    <span class="s1">std::ofstream outFile</span><span class="s5">(</span><span class="s1">filename</span><span class="s5">);</span>
+    <span class="s4">if </span><span class="s5">(!</span><span class="s1">outFile</span><span class="s5">.</span><span class="s1">is_open</span><span class="s5">()) {</span>
+        <span class="s1">std::cerr </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;Failed to open file: &quot; </span><span class="s5">&lt;&lt; </span><span class="s1">filename </span><span class="s5">&lt;&lt; </span><span class="s1">std::endl</span><span class="s5">;</span>
+        <span class="s4">return</span><span class="s5">;</span>
+    <span class="s5">}</span>
+
+    <span class="s4">for </span><span class="s5">(</span><span class="s4">auto</span><span class="s5">&amp; </span><span class="s1">book : books</span><span class="s5">) {</span>
+        <span class="s1">outFile </span><span class="s5">&lt;&lt; </span><span class="s1">book</span><span class="s5">.</span><span class="s1">serialize</span><span class="s5">() &lt;&lt; </span><span class="s1">std::endl</span><span class="s5">;</span>
+    <span class="s5">}</span>
+
+    <span class="s1">outFile</span><span class="s5">.</span><span class="s1">close</span><span class="s5">();</span>
+    <span class="s1">std::cout </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;Data saved to &quot; </span><span class="s5">&lt;&lt; </span><span class="s1">filename </span><span class="s5">&lt;&lt; </span><span class="s1">std::endl</span><span class="s5">;</span>
+<span class="s5">}</span>
+
+<span class="s1">Library Library::loadFile</span><span class="s5">(</span><span class="s4">const </span><span class="s1">String </span><span class="s5">&amp;</span><span class="s1">filename</span><span class="s5">) {</span>
+    <span class="s1">Library newLibrary</span><span class="s5">;</span>
+    <span class="s1">std::ifstream inFile</span><span class="s5">(</span><span class="s1">filename</span><span class="s5">);</span>
+    <span class="s4">if </span><span class="s5">(!</span><span class="s1">inFile</span><span class="s5">.</span><span class="s1">is_open</span><span class="s5">()) {</span>
+        <span class="s1">std::cerr </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;Failed to open file: &quot; </span><span class="s5">&lt;&lt; </span><span class="s1">filename </span><span class="s5">&lt;&lt; </span><span class="s1">std::endl</span><span class="s5">;</span>
+        <span class="s4">return </span><span class="s1">newLibrary</span><span class="s5">;</span>
+    <span class="s5">}</span>
+
+    <span class="s1">String line</span><span class="s5">;</span>
+    <span class="s4">while </span><span class="s5">(</span><span class="s1">std::getline</span><span class="s5">(</span><span class="s1">inFile</span><span class="s5">, </span><span class="s1">line</span><span class="s5">)) {</span>
+        <span class="s4">if </span><span class="s5">(!</span><span class="s1">line</span><span class="s5">.</span><span class="s1">empty</span><span class="s5">()) {</span>
+            <span class="s1">Book::cast</span><span class="s5">(</span><span class="s1">line</span><span class="s5">, &amp;</span><span class="s1">newLibrary</span><span class="s5">);</span>
+        <span class="s5">}</span>
+    <span class="s5">}</span>
+
+    <span class="s1">inFile</span><span class="s5">.</span><span class="s1">close</span><span class="s5">();</span>
+    <span class="s1">std::cout </span><span class="s5">&lt;&lt; </span><span class="s3">&quot;Data loaded from &quot; </span><span class="s5">&lt;&lt; </span><span class="s1">filename </span><span class="s5">&lt;&lt; </span><span class="s1">std::endl</span><span class="s5">;</span>
+    <span class="s4">return </span><span class="s1">newLibrary</span><span class="s5">;</span>
+<span class="s5">}</span>
+</pre>
+</body>
+</html>
